@@ -4,15 +4,15 @@ import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import { Construct } from 'constructs';
 
-export class CdkWorkshopStack extends Stack {
+export class AwsCdkWorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const queue = new sqs.Queue(this, 'CdkWorkshopQueue', {
+    const queue = new sqs.Queue(this, 'AwsCdkWorkshopQueue', {
       visibilityTimeout: Duration.seconds(300)
     });
 
-    const topic = new sns.Topic(this, 'CdkWorkshopTopic');
+    const topic = new sns.Topic(this, 'AwsCdkWorkshopTopic');
 
     topic.addSubscription(new subs.SqsSubscription(queue));
   }

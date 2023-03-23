@@ -1,8 +1,8 @@
 {
-  "name": "cdk-workshop",
+  "name": "aws-cdk-workshop",
   "version": "0.1.0",
   "bin": {
-    "cdk-workshop": "bin/cdk-workshop.js"
+    "aws-cdk-workshop": "bin/aws-cdk-workshop.js"
   },
   "scripts": {
     "build": "tsc",
