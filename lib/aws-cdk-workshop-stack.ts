@@ -1,5 +1,6 @@
 import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
 
 export class AwsCdkWorkshopStack extends Stack {
@@ -13,5 +14,9 @@ export class AwsCdkWorkshopStack extends Stack {
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
 
+    // defines an API Gateway REST API resource backed by our "hello" function.
+    new apigw.LambdaRestApi(this, 'Endpoint', {
+      handler: hello
+    });
   }
 }
