@@ -8,11 +8,7 @@ export class AwsCdkWorkshopStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const queue = new sqs.Queue(this, 'AwsCdkWorkshopQueue', {
-      visibilityTimeout: Duration.seconds(300)
-    });
-
-    const topic = new sns.Topic(this, 'AwsCdkWorkshopTopic');
+    // nothing here
 
     topic.addSubscription(new subs.SqsSubscription(queue));
   }
