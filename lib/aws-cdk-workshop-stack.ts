@@ -1,10 +1,11 @@
-import { Duration, Stack, StackProps } from 'aws-cdk-lib';
+import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { Construct } from 'constructs';
+import { HitCounter } from './hitconter';
 
-export class AwsCdkWorkshopStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
+export class AwsCdkWorkshopStack extends cdk.Stack {
+  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // defines an AWS Lambda resource
@@ -14,9 +15,13 @@ export class AwsCdkWorkshopStack extends Stack {
       handler: 'hello.handler'                // file is "hello", function is "handler"
     });
 
+    const helloWithCounter = new HitCounter(this, 'HelloHitCounter', {
+      downstream: hello
+    });
+
     // defines an API Gateway REST API resource backed by our "hello" function.
     new apigw.LambdaRestApi(this, 'Endpoint', {
-      handler: hello
+      handler: helloWithCounter.handler
     });
   }
 }
